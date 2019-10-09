@@ -56,6 +56,14 @@ dependencies {
     // Json Parser
     api 'com.google.code.gson:gson:2.8.6'
 
+    // navigation
+    api "androidx.navigation:navigation-fragment-ktx:2.1.0"
+    api "androidx.navigation:navigation-ui-ktx:2.1.0"
+    api 'androidx.navigation:navigation-fragment:2.1.0'
+    api 'androidx.navigation:navigation-ui:2.1.0'
+    api 'androidx.navigation:navigation-fragment-ktx:2.1.0'
+    api 'androidx.navigation:navigation-ui-ktx:2.1.0'
+
     // Network
     api 'com.squareup.okhttp3:okhttp:4.2.2'
     api 'com.squareup.okhttp3:logging-interceptor:4.2.2'
