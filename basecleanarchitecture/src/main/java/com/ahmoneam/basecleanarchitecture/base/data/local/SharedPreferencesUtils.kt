@@ -2,8 +2,6 @@ package com.ahmoneam.basecleanarchitecture.base.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
 import kotlin.reflect.KClass
 
@@ -13,16 +11,19 @@ class SharedPreferencesUtils constructor(
     private val sharedPreferencesName: String
 ) :
     SharedPreferencesInterface {
-    private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+//    private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 
-    private val mPrefs: SharedPreferences = EncryptedSharedPreferences
-        .create(
-            sharedPreferencesName,
-            masterKeyAlias,
-            context,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
+    private val mPrefs: SharedPreferences =
+        context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE)
+
+    /*EncryptedSharedPreferences
+    .create(
+        sharedPreferencesName,
+        masterKeyAlias,
+        context,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )*/
 
     override fun putString(key: String, value: String) {
         mPrefs.edit().putString(key, value).apply()
