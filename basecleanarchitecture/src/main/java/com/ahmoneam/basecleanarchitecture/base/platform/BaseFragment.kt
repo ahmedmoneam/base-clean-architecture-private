@@ -3,7 +3,6 @@ package com.ahmoneam.basecleanarchitecture.base.platform
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.ahmoneam.basecleanarchitecture.Result
 import com.ahmoneam.basecleanarchitecture.utils.EventObserver
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -29,7 +28,7 @@ abstract class BaseFragment<ViewModel : BaseViewModel>
             else hideLoading()
         })
 
-        viewModel.error.observe(this, Observer {
+        viewModel.error.observe(this, EventObserver {
             hideLoading()
             showError(it)
         })

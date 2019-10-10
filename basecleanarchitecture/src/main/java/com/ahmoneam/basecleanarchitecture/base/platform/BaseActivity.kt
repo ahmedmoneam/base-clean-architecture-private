@@ -4,7 +4,6 @@ package com.ahmoneam.basecleanarchitecture.base.platform
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.ahmoneam.basecleanarchitecture.Result
 import com.ahmoneam.basecleanarchitecture.utils.EventObserver
 import com.ahmoneam.basecleanarchitecture.utils.LocaleHelper
@@ -33,7 +32,7 @@ abstract class BaseActivity<ViewModel : BaseViewModel>
             else hideLoading()
         })
 
-        viewModel.error.observe(this, Observer {
+        viewModel.error.observe(this, EventObserver {
             hideLoading()
             showError(it)
         })

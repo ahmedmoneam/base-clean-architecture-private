@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 abstract class BaseViewModel : ViewModel() {
-    val error = MutableLiveData<Result.Error>()
+    val error = MutableLiveData<Event<Result.Error>>()
     val loading = MutableLiveData<Event<Result.Loading>>()
 
     inline fun wrapBlockingOperation(
@@ -36,7 +36,7 @@ abstract class BaseViewModel : ViewModel() {
 
     fun handelError(throwable: Throwable) {
         if (throwable is ApplicationException) {
-            error.postValue(Result.Error(throwable))
+            error.postValue(Event(Result.Error(throwable)))
 
 //            when (throwable.type) {
 //                ErrorType.Network.Unauthorized -> TODO()
