@@ -11,8 +11,8 @@ import kotlinx.coroutines.withContext
 import org.koin.core.inject
 import retrofit2.Response
 
-abstract class BaseRepository<LocalData : LocalDataSource, RemoteData : RemoteDataSource> :
-    IBaseRepository {
+abstract class BaseRepository<LocalData : LocalDataSource, RemoteData : RemoteDataSource>
+    (val localDataSource: LocalData, val remoteDataSource: RemoteData) : IBaseRepository {
 
     val connectivityUtils: IConnectivityUtils by inject()
 
