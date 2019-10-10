@@ -13,10 +13,12 @@ import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import org.koin.core.logger.MESSAGE
+import org.koin.core.module.Module
 import timber.log.Timber
 
 abstract class BaseApplication : Application() {
 
+    abstract val modulesList: ArrayList<Module>
     abstract val interceptors: List<Interceptor>
     abstract val baseUrl: String
     abstract val sharedPreferencesName: String
@@ -39,18 +41,22 @@ abstract class BaseApplication : Application() {
             Timber.plant(ReleaseTree())
         }
 
+        val modules = KoinModules.initApplicationModule(
+            baseUrl,
+            sharedPreferencesName,
+            isDebug,
+            interceptors
+        )
+
+        modules.addAll(modulesList)
+
         koin = startKoin {
             // Koin Android logger
             androidLogger()
             //inject Android context
             androidContext(this@BaseApplication)
             modules(
-                KoinModules.initApplicationModule(
-                    baseUrl,
-                    sharedPreferencesName,
-                    isDebug,
-                    interceptors
-                )
+                modules
             )
         }
 
