@@ -1,5 +1,6 @@
 package com.ahmoneam.basecleanarchitecture.base.di
 
+import com.ahmoneam.basecleanarchitecture.base.data.local.SharedPreferencesInterface
 import com.ahmoneam.basecleanarchitecture.base.data.local.SharedPreferencesUtils
 import com.ahmoneam.basecleanarchitecture.utils.ConnectivityUtils
 import com.ahmoneam.basecleanarchitecture.utils.IConnectivityUtils
@@ -81,7 +82,7 @@ object KoinModules {
 
         // local data source module
         moduleList.add(module {
-            single {
+            single<SharedPreferencesInterface> {
                 SharedPreferencesUtils(
                     get(),
                     androidContext(),
