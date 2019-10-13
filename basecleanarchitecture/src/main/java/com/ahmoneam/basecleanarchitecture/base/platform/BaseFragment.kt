@@ -1,11 +1,11 @@
 package com.ahmoneam.basecleanarchitecture.base.platform
 
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import com.ahmoneam.basecleanarchitecture.Result
 import com.ahmoneam.basecleanarchitecture.utils.EventObserver
 import org.koin.androidx.viewmodel.ext.android.getViewModel
+import timber.log.Timber
 import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KClass
 
@@ -21,8 +21,8 @@ abstract class BaseFragment<ViewModel : BaseViewModel>
             .actualTypeArguments[0] as Class<ViewModel>).kotlin
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         viewModel.loading.observe(this, EventObserver {
             if (it.loading) showLoading()
             else hideLoading()
@@ -31,6 +31,16 @@ abstract class BaseFragment<ViewModel : BaseViewModel>
         viewModel.error.observe(this, EventObserver {
             hideLoading()
             showError(it)
+        })
+
+        viewModel.nextScreen.observe(this, EventObserver {
+            when (it) {
+                is BaseNavigationDestination.Activities -> it.start(activity!!)
+                is BaseNavigationDestination.Fragments -> it.start(this)
+                else -> {
+                    Timber.e("Unsupported type ")
+                }
+            }
         })
     }
 

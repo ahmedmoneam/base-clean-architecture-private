@@ -13,6 +13,8 @@ import timber.log.Timber
 abstract class BaseViewModel : ViewModel() {
     val error = MutableLiveData<Event<Result.Error>>()
     val loading = MutableLiveData<Event<Result.Loading>>()
+    val nextScreen = MutableLiveData<Event<BaseNavigationDestination<*, *>>>()
+
 
     inline fun wrapBlockingOperation(
         showLoading: Boolean = true,
@@ -30,6 +32,20 @@ abstract class BaseViewModel : ViewModel() {
             } finally {
                 loading.value = Event(Result.Loading(false))
                 Timber.e("hide loading")
+            }
+        }
+    }
+
+    fun <T> handleResult(result: Result<T>, onSuccess: (Result.Success<T>) -> Unit) {
+        when (result) {
+            is Result.Success<T> -> {
+                onSuccess(result)
+            }
+            is Result.Error -> {
+                throw result.exception
+            }
+            is Result.Loading -> {
+                // pass todo
             }
         }
     }

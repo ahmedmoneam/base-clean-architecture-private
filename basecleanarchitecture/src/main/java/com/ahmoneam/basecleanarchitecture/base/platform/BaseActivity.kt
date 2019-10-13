@@ -36,6 +36,12 @@ abstract class BaseActivity<ViewModel : BaseViewModel>
             hideLoading()
             showError(it)
         })
+
+        viewModel.nextScreen.observe(this, EventObserver {
+            when (it) {
+                is BaseNavigationDestination.Activities -> it.start(this)
+            }
+        })
     }
 
     open fun showError(error: Result.Error) {
