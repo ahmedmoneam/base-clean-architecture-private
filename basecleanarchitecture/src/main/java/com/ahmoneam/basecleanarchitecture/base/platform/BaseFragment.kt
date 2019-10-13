@@ -35,15 +35,15 @@ abstract class BaseFragment<ViewModel : BaseViewModel>
     }
 
     open fun showError(error: Result.Error) {
-        TODO()
+//        TODO()
     }
 
     open fun hideLoading() {
-        TODO()
+//        TODO()
     }
 
     open fun showLoading() {
-        TODO()
+//        TODO()
     }
 
 }
