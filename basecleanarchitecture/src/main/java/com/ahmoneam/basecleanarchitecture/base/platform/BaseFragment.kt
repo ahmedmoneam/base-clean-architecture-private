@@ -1,6 +1,7 @@
 package com.ahmoneam.basecleanarchitecture.base.platform
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.ahmoneam.basecleanarchitecture.Result
 import com.ahmoneam.basecleanarchitecture.utils.EventObserver
@@ -45,15 +46,21 @@ abstract class BaseFragment<ViewModel : BaseViewModel>
     }
 
     open fun showError(error: Result.Error) {
-//        TODO()
+        val errorMessage = error.exception.errorMessage ?: kotlin.run {
+            return@run if (error.exception.errorMessageRes != null) {
+                getString(error.exception.errorMessageRes)
+            } else null
+        } ?: "unexpected error"
+
+        Toast.makeText(context!!, errorMessage, Toast.LENGTH_LONG).show()
     }
 
     open fun hideLoading() {
-//        TODO()
+        Toast.makeText(context!!, "loaded", Toast.LENGTH_SHORT).show()
     }
 
     open fun showLoading() {
-//        TODO()
+        Toast.makeText(context!!, "loading", Toast.LENGTH_SHORT).show()
     }
 
 }

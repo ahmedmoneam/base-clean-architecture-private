@@ -25,7 +25,7 @@ class SharedPreferencesUtils constructor(
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )*/
 
-    override fun putString(key: String, value: String) {
+    override fun putString(key: String, value: String?) {
         mPrefs.edit().putString(key, value).apply()
     }
 

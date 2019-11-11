@@ -38,8 +38,10 @@ internal object NetworkModule {
         else logging.level = HttpLoggingInterceptor.Level.NONE
 
         val okHttpClientBuilder = OkHttpClient.Builder()
-            .readTimeout(1, TimeUnit.MINUTES)
-            .connectTimeout(1, TimeUnit.MINUTES)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .writeTimeout(20, TimeUnit.SECONDS)
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .addInterceptor(logging)
 
         interceptors
             .forEach { okHttpClientBuilder.interceptors().add(it) }

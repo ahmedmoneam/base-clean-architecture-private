@@ -14,4 +14,6 @@ sealed class ErrorType {
         object Unexpected : Network(-1)
         object NoInternetConnection : Network(-2)
     }
+
+    object Unexpected : ErrorType()
 }

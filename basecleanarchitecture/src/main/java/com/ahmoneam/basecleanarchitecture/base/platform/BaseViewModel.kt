@@ -15,7 +15,6 @@ abstract class BaseViewModel : ViewModel() {
     val loading = MutableLiveData<Event<Result.Loading>>()
     val nextScreen = MutableLiveData<Event<BaseNavigationDestination<*, *>>>()
 
-
     inline fun wrapBlockingOperation(
         showLoading: Boolean = true,
         crossinline function: suspend CoroutineScope.() -> Unit
@@ -44,9 +43,6 @@ abstract class BaseViewModel : ViewModel() {
             is Result.Error -> {
                 throw result.exception
             }
-            is Result.Loading -> {
-                // pass todo
-            }
         }
     }
 
@@ -63,6 +59,6 @@ abstract class BaseViewModel : ViewModel() {
 //                }
 //            }
         }
-        TODO()
+//        TODO()
     }
 }
